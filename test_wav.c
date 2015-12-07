@@ -150,6 +150,8 @@ int main()
     
 	printf("The channel1_diff is %u, channel2 %u, channel3 %u, channel4 %u\n", channel1_diff,channel2_diff, channel3_diff, channel4_diff);
 
+	sleep(3);	
+
 	//generate sine wave
 	short * sine_data = (short *)malloc(total_samples);
 	double amplitude = channel1_diff;

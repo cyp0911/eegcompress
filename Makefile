@@ -8,7 +8,7 @@ LFLAGS = -Wall $(DEBUG)
 
 
 p1 : $(OBJS)
-	$(CC) $(LFLAGS) $(OBJS) -o p1
+	$(CC) $(LFLAGS) $(OBJS) -o p1 -lm
 
 make_wav.o: make_wav.c make_wav.h
 	$(CC) $(CFLAGS) make_wav.c
