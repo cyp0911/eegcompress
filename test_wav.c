@@ -135,11 +135,11 @@ int main()
 	    channel4_data[i] = data_store[i*4+3];  
 	}
 	
-	for( i = 0; i < sub_samples; i++)
+/*	for( i = 0; i < sub_samples; i++)
 	{
 	    printf("channel4[%u] value is:%hd\n ", i, channel4_data[i]);
 
-	}
+	} */
 
 //find max and min value in subchannels
 	
@@ -156,11 +156,13 @@ int main()
 	short * sine_data = (short *) malloc (total_samples);
 	double amplitude = channel1_diff;
 	//short freq = sample_rate;
-	
+
+
 	for(i = 0; i < sub_samples; i++)
 	{
-	    sine_data[i] = amplitude * sin(2 * PI * sample_rate * i);
+	    sine_data[i] = 0.6 * amplitude * sin(2 * PI * sample_rate * i);
 	  //  printf("sine data [%u] is %hu\n", i, sine_data[i]);
+	    
 	}
 
 	printf("freq is %u\n",sample_rate);

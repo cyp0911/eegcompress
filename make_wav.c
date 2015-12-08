@@ -1,22 +1,20 @@
-/* make_wav.c
- * Creates a WAV file from an array of ints.
- * Output is monophonic, signed 16-bit samples
- * copyright
- * Fri Jun 18 16:36:23 PDT 2010 Kevin Karplus
- * Creative Commons license Attribution-NonCommercial
- *  http://creativecommons.org/licenses/by-nc/3.0/
+/* operator_wav.c 
+ * This file contains several operations for eeg datas in   
+ * my compress_wav.c
+ * 2015 Dec 7 Yinpeng Chen, Acadia University
+ * MSc student in Computer Science: EEG data compression
  */
- 
+
+
+
+
 #include <stdio.h>
-#include <assert.h>
- 
+#include <assert.h> 
 #include "make_wav.h"
 
 
-//data convert function
-
+//convert data to little endian
 void data2array(unsigned int x, unsigned char a[], unsigned char n)
-//convert real data to storage data
 {
     unsigned char i;
     for(i = 0;i < n;i++)
@@ -26,8 +24,8 @@ void data2array(unsigned int x, unsigned char a[], unsigned char n)
     }
 }
 
+//convert little endian data to real data
 unsigned array2data(unsigned a[], unsigned n)
-//convert storage data to real data
 {
     unsigned i;
     unsigned int x = 0;
@@ -37,7 +35,8 @@ unsigned array2data(unsigned a[], unsigned n)
     }
     return x;
 }
- 
+
+//store the data as little endian 
 void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file)
 {
     unsigned buf;
@@ -49,9 +48,6 @@ void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file)
     }
 }
  
-/* information about the WAV file format from
-    http://ccrma.stanford.edu/courses/422/projects/WaveFormat/
- */
  
 void write_wav(char * filename, unsigned long num_samples, short int * data, int s_rate)
 {
@@ -106,7 +102,6 @@ void safe_flush(FILE *fp){
 }
 
 //find the biggest difference value in an array
-
 int array_diff(short channelarray[], unsigned size)
 {
     int i;
