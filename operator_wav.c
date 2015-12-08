@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include <assert.h> 
-#include "make_wav.h"
+#include "operator_wav.h"
 
 
 //convert data to little endian

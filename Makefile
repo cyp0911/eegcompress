@@ -1,5 +1,5 @@
 CC = gcc
-OBJS = test_wav.o make_wav.o
+OBJS = operator_wav.o compress_wav.o
 DEBUG =  -g
 CFLAGS = -Wall -c $(DEBUG)
 LFLAGS = -Wall $(DEBUG) 
@@ -10,11 +10,11 @@ LFLAGS = -Wall $(DEBUG)
 p1 : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o p1 -lm
 
-make_wav.o: make_wav.c make_wav.h
-	$(CC) $(CFLAGS) make_wav.c
+operator.o: compress_wav.c operator_wav.h
+	$(CC) $(CFLAGS) operator.c
 
-test_wav.o: test_wav.c make_wav.h
-	$(CC) $(CFLAGS) test_wav.c
+compress_wav.o: compress_wav.c operator_wav.h
+	$(CC) $(CFLAGS) compress_wav.c
 
 
 clean:

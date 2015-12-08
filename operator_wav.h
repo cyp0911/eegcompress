@@ -1,15 +1,13 @@
-/* make_wav.h
- * Fri Jun 18 17:06:02 PDT 2010 Kevin Karplus
+/* operator.h
+ * Dec 07 2015, Yinpeng Chen
+ * Acadia University
  */
  
-#ifndef MAKE_WAV_H
-#define MAKE_WAV_H
+#ifndef OPERATOR_WAV_H
+#define OPERATOR_H
  
 void write_wav(char * filename, unsigned long num_samples, short int * data, int s_rate);
-    /* open a file named filename, write signed 16-bit values as a
-        monoaural WAV file at the specified sampling rate
-        and close the file
-    */
+    /*write data from arry to a wav file */
 
 void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file);
     /* write data to wav file stored by little_endian */
