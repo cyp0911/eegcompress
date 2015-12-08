@@ -28,4 +28,8 @@ unsigned array2data(unsigned a[], unsigned n);
 
 int array_diff(short channelarray[], unsigned size);
     /*compute biggest amplitude in an array*/
+
+struct sin_coeff find_best_coeff(short channel1[], unsigned channel_diff, unsigned sub_samples, unsigned sample_rate);
+
+
 #endif

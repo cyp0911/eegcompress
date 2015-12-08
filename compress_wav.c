@@ -112,8 +112,8 @@ int main()
 	{   
 	    printf("I can't read any data from wav file!\n");
 	}
-
-	
+	fclose(fp);
+	fflush(fp);
 
 /*	for( i = 0; i < total_samples; i++)
 	{
@@ -123,24 +123,29 @@ int main()
 	unsigned sub_samples = total_samples / 4;
 	
 	
-	short * channel1_data =(short *)malloc(total_samples);
-	short * channel2_data =(short *)malloc(total_samples);
-	short * channel3_data =(short *)malloc(total_samples);
-	short * channel4_data =(short *)malloc(total_samples);
+	short * channel1_data = (short *)malloc(total_samples);
+	short * channel2_data = (short *)malloc(total_samples);
+	short * channel3_data = (short *)malloc(total_samples);
+	short * channel4_data = (short *)malloc(total_samples);
 	
-	for( i = 0; i < sub_samples; i++)
+	short * channel_bakup = (short *)malloc(total_samples*2);
+	
+	for( i = 0; i < total_samples; i++)
 	{
+	    if(i < sub_samples)
+	    {
 	    channel1_data[i] = data_store[i*4];
 	    channel2_data[i] = data_store[i*4+1];
 	    channel3_data[i] = data_store[i*4+2];
 	    channel4_data[i] = data_store[i*4+3];  
+	    }
+	    channel_bakup[i] = data_store[i];
 	}
-	
-/*	for( i = 0; i < sub_samples; i++)
-	{
-	    printf("channel4[%u] value is:%hd\n ", i, channel4_data[i]);
 
-	} */
+//write and generate full(contains 4 channels) wav file
+	char * outfile_full = "4cfull.wav";
+	write_wav(outfile_full, sub_samples, channel_bakup, sample_rate, channel);
+
 
 //find max and min value in subchannels
 	

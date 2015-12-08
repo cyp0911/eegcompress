@@ -11,7 +11,7 @@ struct sin_coeff{
     int omega;
 }; 
 
-void write_wav(char * filename, unsigned long num_samples, short int * data, int s_rate);
+void write_wav(char * filename, unsigned num_samples, short * data, unsigned sample_rate, unsigned num_channel);
     /*write data from arry to a wav file */
 
 void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file);

@@ -54,20 +54,15 @@ void write_little_endian(unsigned int word, int num_bytes, FILE *wav_file)
 }
  
  
-void write_wav(char * filename, unsigned long num_samples, short int * data, int s_rate)
+void write_wav(char * filename, unsigned num_samples, short * data, unsigned sample_rate, unsigned num_channels)
 {
     FILE* wav_file;
-    unsigned int sample_rate;
-    unsigned int num_channels;
     unsigned int bytes_per_sample;
     unsigned int byte_rate;
     unsigned long i;    /* counter for samples */
  
-    num_channels = 1;   /* monoaural */
     bytes_per_sample = 2;
  
-    if (s_rate<=0) sample_rate = 44100;
-    else sample_rate = (unsigned int) s_rate;
  
     byte_rate = sample_rate*num_channels*bytes_per_sample;
  
@@ -91,9 +86,9 @@ void write_wav(char * filename, unsigned long num_samples, short int * data, int
  
     /* write data subchunk */
     fwrite("data", 1, 4, wav_file);
-    write_little_endian(bytes_per_sample* num_samples*num_channels, 4, wav_file);
-    for (i=0; i< num_samples; i++)
-    {   write_little_endian((unsigned int)(data[i]),bytes_per_sample, wav_file);
+    write_little_endian(bytes_per_sample * num_samples * num_channels, 4, wav_file);
+    for (i=0; i< num_samples * num_channels; i++)
+    {   write_little_endian(data[i],bytes_per_sample, wav_file);
     }
  
     fclose(wav_file);

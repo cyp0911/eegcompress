@@ -19,9 +19,10 @@
  
 int main()
 {
-    int i = 0, j = 0, k = 0;
+    int i = 0;
     int main_choice;
     struct sin_coeff sin_coe1;
+    struct sin_coeff sin_coe2;
     
     char * infile_name;
     FILE * fp;
@@ -153,13 +154,15 @@ int main()
 	//sleep(3);	
 
 	//generate sine wave
-	short * sine_data = (short *) malloc (total_samples);
+	//short * sine_data = (short *) malloc (total_samples);
 
-	int recValue, mink1, minj1;
+	
 	sin_coe1 = find_best_coeff(channel1_data, channel1_diff, sub_samples, sample_rate);
-	printf("LOOK at main values:\n");
-	printf("mink1 is %d, minj1 is %d\n", sin_coe1.A, sin_coe1.omega);
+	sin_coe2 = find_best_coeff(channel2_data, channel2_diff, sub_samples, sample_rate);
 
+	printf("LOOK at main values:\n");
+	printf("mink1 is %d, minj1 is %d, errordiff1\n", sin_coe1.A, sin_coe1.omega, sin_coe1.errordiff);
+	printf("mink2 is %d, minj2 is %d, errordiff2\n", sin_coe2.A, sin_coe2.omega, sin_coe2.errordiff);
 
 
 
