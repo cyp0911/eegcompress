@@ -125,9 +125,14 @@ struct sin_coeff find_best_coeff(short channel1[], unsigned channel_diff, unsign
 	unsigned total_samples = sub_samples * 4;
 	short * error = (short *) malloc (total_samples);	    //store the data of error(subchannel - sine_data)
 	short * sine = (short *) malloc (total_samples);
-
-    for (k = 1; k < 20; k++){
-      for(j = (-20); j < 21 ; j++){
+	
+	/*int minA, maxA, minO, maxO;
+	printf("please enter the range of coefficient for sine wave:<usage: minimum-amptitude  maximum-amptitude  minimum-Omega  maximum Omega.>\n");
+	scanf("%d %d %d %d", &minA, &maxA, &minO, &maxO);
+	printf("your setting is:minA%d,maxA%d,mimO%d,max%d.\n",minA,maxA,minO,maxO);
+	fflush(stdin);*/
+    for (k = -20; k < 40; k++){
+      for(j = (-40); j < 40 ; j++){
 	for(i = 0; i < sub_samples; i++)
 	{
 	    sine[i] = 0.05 * j * channel_diff * sin( 2 * PI * sample_rate * i * k); 
@@ -142,7 +147,7 @@ struct sin_coeff find_best_coeff(short channel1[], unsigned channel_diff, unsign
 		}//k domin  
 	}
 
-	printf("minErrdiff1 is %d, minj1 is %d, mink1 is %d\n", minErrdiff1, minj1, mink1);
+	printf("Errintdiff is %d, minA is %d, minOmega is %d\n", minErrdiff1, minj1, mink1);
 	r.A = minj1;
 	r.omega = mink1;
 

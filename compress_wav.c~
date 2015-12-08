@@ -112,8 +112,8 @@ int main()
 	{   
 	    printf("I can't read any data from wav file!\n");
 	}
-
-	
+	fclose(fp);
+	fflush(fp);
 
 /*	for( i = 0; i < total_samples; i++)
 	{
@@ -123,24 +123,29 @@ int main()
 	unsigned sub_samples = total_samples / 4;
 	
 	
-	short * channel1_data =(short *)malloc(total_samples);
-	short * channel2_data =(short *)malloc(total_samples);
-	short * channel3_data =(short *)malloc(total_samples);
-	short * channel4_data =(short *)malloc(total_samples);
+	short * channel1_data = (short *)malloc(total_samples);
+	short * channel2_data = (short *)malloc(total_samples);
+	short * channel3_data = (short *)malloc(total_samples);
+	short * channel4_data = (short *)malloc(total_samples);
 	
-	for( i = 0; i < sub_samples; i++)
+	short * channel_bakup = (short *)malloc(total_samples*2);
+	
+	for( i = 0; i < total_samples; i++)
 	{
+	    if(i < sub_samples)
+	    {
 	    channel1_data[i] = data_store[i*4];
 	    channel2_data[i] = data_store[i*4+1];
 	    channel3_data[i] = data_store[i*4+2];
 	    channel4_data[i] = data_store[i*4+3];  
+	    }
+	    channel_bakup[i] = data_store[i];
 	}
-	
-/*	for( i = 0; i < sub_samples; i++)
-	{
-	    printf("channel4[%u] value is:%hd\n ", i, channel4_data[i]);
 
-	} */
+//write and generate full(contains 4 channels) wav file
+	char * outfile_full = "4cfull.wav";
+	write_wav(outfile_full, sub_samples, channel_bakup, sample_rate, channel);
+
 
 //find max and min value in subchannels
 	
@@ -159,11 +164,14 @@ int main()
 	
 	sin_coe1 = find_best_coeff(channel1_data, channel1_diff, sub_samples, sample_rate);
 	sin_coe2 = find_best_coeff(channel2_data, channel2_diff, sub_samples, sample_rate);
+	sin_coe3 = find_best_coeff(channel3_data, channel3_diff, sub_samples, sample_rate);
+	sin_coe4 = find_best_coeff(channel4_data, channel4_diff, sub_samples, sample_rate);
 
 	printf("LOOK at main values:\n");
-	printf("mink1 is %d, minj1 is %d, errordiff1\n", sin_coe1.A, sin_coe1.omega, sin_coe1.errordiff);
-	printf("mink2 is %d, minj2 is %d, errordiff2\n", sin_coe2.A, sin_coe2.omega, sin_coe2.errordiff);
-
+	printf("mink1 is %d, minj1 is %d\n", sin_coe1.A, sin_coe1.omega);
+	printf("mink2 is %d, minj2 is %d\n", sin_coe2.A, sin_coe2.omega);
+	printf("mink3 is %d, minj3 is %d\n", sin_coe3.A, sin_coe3.omega);
+	printf("mink4 is %d, minj4 is %d\n", sin_coe4.A, sin_coe4.omega);
 
 
 

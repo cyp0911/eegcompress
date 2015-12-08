@@ -23,6 +23,8 @@ int main()
     int main_choice;
     struct sin_coeff sin_coe1;
     struct sin_coeff sin_coe2;
+    struct sin_coeff sin_coe3;
+    struct sin_coeff sin_coe4;
     
     char * infile_name;
     FILE * fp;
@@ -119,7 +121,6 @@ int main()
 	{
 	    printf("The data_store[%u] is %hd\n", i, data_store[i]);
 	}*/
-	printf("total_samples is %u\n", total_samples);
 	unsigned sub_samples = total_samples / 4;
 	
 	
@@ -164,15 +165,17 @@ int main()
 	
 	sin_coe1 = find_best_coeff(channel1_data, channel1_diff, sub_samples, sample_rate);
 	sin_coe2 = find_best_coeff(channel2_data, channel2_diff, sub_samples, sample_rate);
+	sin_coe3 = find_best_coeff(channel3_data, channel3_diff, sub_samples, sample_rate);
+	sin_coe4 = find_best_coeff(channel4_data, channel4_diff, sub_samples, sample_rate);
 
 	printf("LOOK at main values:\n");
-	printf("mink1 is %d, minj1 is %d\n", sin_coe1.A, sin_coe1.omega);
-	printf("mink2 is %d, minj2 is %d\n", sin_coe2.A, sin_coe2.omega);
+	printf("minA1 is %d, minO1 is %d\n", sin_coe1.A, sin_coe1.omega);
+	printf("minA2 is %d, minO2 is %d\n", sin_coe2.A, sin_coe2.omega);
+	printf("minA3 is %d, minO3 is %d\n", sin_coe3.A, sin_coe3.omega);
+	printf("minA4 is %d, minO4 is %d\n", sin_coe4.A, sin_coe4.omega);
 
 
 
-
-	printf("freq is %u\n",sample_rate);
 /*
 	for(i = 0; i < sub_samples; i++)
 	{
