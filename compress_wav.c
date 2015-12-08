@@ -19,9 +19,8 @@
  
 int main()
 {
-    int i = 0, j = 0;
+    int i = 0, j = 0, k = 0;
     int main_choice;
-    float t = 0;
     
     char * infile_name;
     FILE * fp;
@@ -60,7 +59,7 @@ int main()
 	    fclose(fp);
 	    return 1;
 	}
-	unsigned bps = 16;
+//	unsigned bps = 16;
 
 
 //read chunk size
@@ -157,27 +156,27 @@ int main()
 	double amplitude = channel1_diff;
 	
 	//compute the best coefficient of sine function
-	int minErrdiff1, minj1;
+	int minErrdiff1, minj1, mink1;
 
 	short * error_data = (short *) malloc (total_samples);	       //store the data of error(subchannel - sine_data)
 
-
-	for(j = (-20); j < 21 ; j++){
+    for (k = 1; k < 20; k++){
+      for(j = (-20); j < 21 ; j++){
 	for(i = 0; i < sub_samples; i++)
 	{
-	    sine_data[i] = 0.05 * j * amplitude * sin( 2 * PI * sample_rate * i); 
+	    sine_data[i] = 0.05 * j * amplitude * sin( 2 * PI * sample_rate * i * k); 
 	    error_data[i] = channel1_data[i] - sine_data[i];
-	}
-	    if ( j == (-20)) {minErrdiff1 = array_diff(error_data, sub_samples);}
-	    else if (
-		 minErrdiff1 > array_diff( error_data, sub_samples)){
+	}// j domin
+	    if (j == (-20) && k == 1){minErrdiff1 = array_diff( error_data, sub_samples);}
+	    else if ( minErrdiff1 > array_diff( error_data, sub_samples)){
 		 minErrdiff1 = array_diff( error_data, sub_samples);
-		 minj1 = j;
+		 minj1 = j; mink1 = k;
 
 	    }	
+}//k domin  
 }
 
-	printf("minErrdiff1 is %d, minj1 is %d\n", minErrdiff1, minj1);
+	printf("minErrdiff1 is %d, minj1 is %d, mink1 is %d\n", minErrdiff1, minj1, mink1);
 
 	printf("freq is %u\n",sample_rate);
 /*
@@ -191,6 +190,5 @@ int main()
 	printf("error diff is %u, channel1_diff is %u\n", error_diff, channel1_diff);
 	
 }
-
-
+	return 1;
 }
