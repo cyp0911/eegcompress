@@ -157,28 +157,27 @@ int main()
 	double amplitude = channel1_diff;
 	
 	//compute the best coefficient of sine function
-	int minValuej, minsinA;
+	int minErrdiff1, minj1;
 
-	short * error_data = (short *) malloc (total_samples);	       //store the data of error(subchannel - sine_data
+	short * error_data = (short *) malloc (total_samples);	       //store the data of error(subchannel - sine_data)
 
 
-//looking for best amptitude
-	for(j = 1; j < 21 ; j++){
+	for(j = (-20); j < 21 ; j++){
 	for(i = 0; i < sub_samples; i++)
 	{
-	    sine_data[i] = 0.1 * j * amplitude * sin( 2 * PI * sample_rate * i); 
+	    sine_data[i] = 0.05 * j * amplitude * sin( 2 * PI * sample_rate * i); 
 	    error_data[i] = channel1_data[i] - sine_data[i];
 	}
-	    if ( j == 1) {minsinA = array_diff(error_data, sub_samples);}
+	    if ( j == (-20)) {minErrdiff1 = array_diff(error_data, sub_samples);}
 	    else if (
-		 minsinA > array_diff( error_data, sub_samples)){
-		 minsinA = array_diff( error_data, sub_samples);
-		 minValuej = j;
+		 minErrdiff1 > array_diff( error_data, sub_samples)){
+		 minErrdiff1 = array_diff( error_data, sub_samples);
+		 minj1 = j;
 
 	    }	
 }
 
-	printf("minsinA is %d, minValue is %d\n", minsinA, minValuej);
+	printf("minErrdiff1 is %d, minj1 is %d\n", minErrdiff1, minj1);
 
 	printf("freq is %u\n",sample_rate);
 /*
