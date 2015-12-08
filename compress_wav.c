@@ -19,7 +19,7 @@
  
 int main()
 {
-    unsigned i = 0;
+    int i = 0, j = 0;
     int main_choice;
     float t = 0;
     
@@ -101,7 +101,7 @@ int main()
 	printf("total samples is %u\n", total_samples);
 	free(pos);
 
-	sleep(1);
+	//sleep(1);
 
 //data store section
 	
@@ -150,34 +150,47 @@ int main()
     
 	printf("The channel1_diff is %u, channel2 %u, channel3 %u, channel4 %u\n", channel1_diff,channel2_diff, channel3_diff, channel4_diff);
 
-	sleep(3);	
+	//sleep(3);	
 
 	//generate sine wave
 	short * sine_data = (short *) malloc (total_samples);
 	double amplitude = channel1_diff;
-	//short freq = sample_rate;
+	
+	//compute the best coefficient of sine function
+	int minValuej, minsinA;
+
+	short * error_data = (short *) malloc (total_samples);	       //store the data of error(subchannel - sine_data
 
 
+//looking for best amptitude
+	for(j = 1; j < 21 ; j++){
 	for(i = 0; i < sub_samples; i++)
 	{
-	    sine_data[i] = 0.6 * amplitude * sin(2 * PI * sample_rate * i);
-	  //  printf("sine data [%u] is %hu\n", i, sine_data[i]);
-	    
+	    sine_data[i] = 0.1 * j * amplitude * sin( 2 * PI * sample_rate * i); 
+	    error_data[i] = channel1_data[i] - sine_data[i];
 	}
+	    if ( j == 1) {minsinA = array_diff(error_data, sub_samples);}
+	    else if (
+		 minsinA > array_diff( error_data, sub_samples)){
+		 minsinA = array_diff( error_data, sub_samples);
+		 minValuej = j;
+
+	    }	
+}
+
+	printf("minsinA is %d, minValue is %d\n", minsinA, minValuej);
 
 	printf("freq is %u\n",sample_rate);
-
-	short * error_data = (short *) malloc (total_samples);
- //store the data of error(subchannel - sine_data)
+/*
 	for(i = 0; i < sub_samples; i++)
 	{
 	    error_data[i] = channel1_data[i] - sine_data[i];
 	    printf("error data[%u] is %hu\n", i, error_data[i]);
 	}
-
-	unsigned error_diff = array_diff( error_data, sub_samples);
+*/
+	int error_diff = array_diff( error_data, sub_samples);
 	printf("error diff is %u, channel1_diff is %u\n", error_diff, channel1_diff);
-
+	
 }
 
 
