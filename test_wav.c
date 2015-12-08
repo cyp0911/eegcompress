@@ -1,6 +1,6 @@
-/* test_make_wav.c
- * Fri Jun 18 17:13:19 PDT 2010 Kevin Karplus
- * Test program for the write_wav function in make_wav.c
+/* compress_wav.c
+ * 2015 Dec 7 Yinpeng Chen, Acadia University
+ * MSc student in Computer Science: for eeg data compression
  */
  
 #include <stdio.h>
@@ -179,39 +179,6 @@ int main()
 	printf("error diff is %u, channel1_diff is %u\n", error_diff, channel1_diff);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*int i;
-    //float t;
-    float amplitude = 32000;
-    float freq_Hz = 440;
-    float phase=0;
- 
-    float freq_radians_per_sample = freq_Hz*2*M_PI/S_RATE;
- */
-    /* fill buffer with a sine wave */
- /*   for (i=0; i<BUF_SIZE; i++)
-    {
-        phase += freq_radians_per_sample;
-    buffer[i] = (int)(amplitude * sin(phase));
-    }
- 
-    write_wav("test.wav", BUF_SIZE, buffer, S_RATE);
- 
-    return 0;
-
-*/
 
 
 }
