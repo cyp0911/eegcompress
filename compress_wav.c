@@ -174,7 +174,23 @@ int main()
 	printf("minA3 is %d, minO3 is %d\n", sin_coe3.A, sin_coe3.omega);
 	printf("minA4 is %d, minO4 is %d\n", sin_coe4.A, sin_coe4.omega);
 
+	//short * sine_wave = (short *) malloc (total_samples);
+	short * final_data = (short *) malloc (total_samples);
 
+	int mark = 0;
+	for ( i = 0; i < sub_samples; i++)
+	{
+	    mark = i;
+	    final_data[mark] = channel1_data[i] - (0.05 * sin_coe1.A * channel1_diff) * sin( 2 * PI * sample_rate * i * sin_coe1.omega);
+	    final_data[mark+1] = channel2_data[i] - (0.05 * sin_coe2.A * channel2_diff) * sin( 2 * PI * sample_rate * i * sin_coe2.omega);
+	    final_data[mark+2] = channel3_data[i] - (0.05 * sin_coe3.A * channel3_diff) * sin( 2 * PI * sample_rate * i * sin_coe3.omega);
+	    final_data[mark+3] = channel4_data[i] - (0.05 * sin_coe4.A * channel4_diff) * sin( 2 * PI * sample_rate * i * sin_coe4.omega);
+	}
+	printf("mark is %d",mark);
+
+
+	char * newfile = "4cnew.wav";
+	write_wav(newfile, sub_samples, final_data, sample_rate, channel);
 
 /*
 	for(i = 0; i < sub_samples; i++)

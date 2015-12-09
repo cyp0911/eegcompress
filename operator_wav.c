@@ -131,7 +131,7 @@ struct sin_coeff find_best_coeff(short channel1[], unsigned channel_diff, unsign
 	scanf("%d %d %d %d", &minA, &maxA, &minO, &maxO);
 	printf("your setting is:minA%d,maxA%d,mimO%d,max%d.\n",minA,maxA,minO,maxO);
 	fflush(stdin);*/
-    for (k = -20; k < 40; k++){
+    for (k = -40; k < 40; k++){
       for(j = (-40); j < 40 ; j++){
 	for(i = 0; i < sub_samples; i++)
 	{
